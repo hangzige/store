@@ -73,6 +73,25 @@
 						@Param("modifiedUser") String modifiedUser,
 						@Param("modifiedTime") Date modifiedTime); -->
 	<update id="changePassword">
-	update t_user set password=#{password},modified_user=#{modifiedUser},modified_time=#{modifiedTime} where uid=#{uid}
-	</update>					   				   
+	update 
+		t_user
+	set 
+		password=#{password},modified_user=#{modifiedUser},modified_time=#{modifiedTime} 
+	where
+		uid=#{uid}
+	</update>	
+	
+	<!-- 修改头像 -->
+	<!-- Integer updateAvatar(@Param("uid") Integer uid,
+			   @Param("avatar") String avatar,
+			   @Param("modifiedUser") String modifiedUser,
+			   @Param("modifiedTime") Date modifiedTime); -->	
+	<update id="updateAvatar">
+		update 
+			t_user
+		set 
+			avatar=#{avatar},modified_user=#{modifiedUser},modified_time=#{modifiedTime} 
+		where
+			uid=#{uid}
+	</update>			   				   
  </mapper>

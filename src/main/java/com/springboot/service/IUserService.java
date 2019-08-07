@@ -38,12 +38,14 @@ public interface IUserService {
 	void changePssword(String oldPassword,String newPassword,String username,Date modifiedTime)throws UserNotFoundException,PasswordNotMatchException,UpdateException;
 	
 	/**
-	 * 将用户信息从数据库查找出来
+	 * 更改头像
+	 * @param avatar 用户头像
 	 * @param uid 用户id
-	 * @return 用户数据
-	 * @throws UserNotFoundException 数据库没有数据抛出
+	 * @param modifiedUser 修改人
+	 * @throws UserNotFoundException 用户数据不存在
+	 * @throws UpdateException 更新失败
 	 */
-	User queryById(Integer uid)throws UserNotFoundException;
+	void changeAvatar(String avatar,Integer uid,String modifiedUser)throws UserNotFoundException,UpdateException;
 	
 	/**
 	 * 修改用户信息
@@ -55,4 +57,14 @@ public interface IUserService {
 	 * @throws UserNotFoundException 用户数据找不到抛出
 	 */
 	void updateInfo(Integer uid,String username,User user)throws UpdateException,UserNotFoundException;
+	
+	/**
+	 * 将用户信息从数据库查找出来
+	 * @param uid 用户id
+	 * @return 用户数据
+	 * @throws UserNotFoundException 数据库没有数据抛出
+	 */
+	User queryById(Integer uid)throws UserNotFoundException;
+	
+	
 }

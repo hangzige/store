@@ -15,6 +15,33 @@ public interface UserMapper {
 	Integer addNew(User user);
 	
 	/**
+	 * 根据用户uid修改密码
+	 * @param uid 用户uid
+	 * @param password 用户密码
+	 * @param modifiedUser 修改用户
+	 * @param modifiedTime 修改时间
+	 * @return
+	 */
+	Integer changePassword(@Param("uid") Integer uid,
+						   @Param("password") String password,
+						   @Param("modifiedUser") String modifiedUser,
+						   @Param("modifiedTime") Date modifiedTime);
+	
+	/**
+	 * 修改头像
+	 * @param uid 用户id
+	 * @param avatar 用户头像
+	 * @param modifiedUser 修改用户
+	 * @param modifiedTime 修改时间
+	 * @return
+	 */
+	Integer updateAvatar(@Param("uid") Integer uid,
+			   @Param("avatar") String avatar,
+			   @Param("modifiedUser") String modifiedUser,
+			   @Param("modifiedTime") Date modifiedTime);
+
+	
+	/**
 	 * 用户注册的用户名看数据库是否存在
 	 * @param username
 	 * @return
@@ -35,16 +62,4 @@ public interface UserMapper {
 	 */
 	Integer changeInfo(User user);
 	
-	/**
-	 * 根据用户uid修改密码
-	 * @param uid 用户uid
-	 * @param password 用户密码
-	 * @param modifiedUser 修改用户
-	 * @param modifiedTime 修改时间
-	 * @return
-	 */
-	Integer changePassword(@Param("uid") Integer uid,
-						   @Param("password") String password,
-						   @Param("modifiedUser") String modifiedUser,
-						   @Param("modifiedTime") Date modifiedTime);
 }

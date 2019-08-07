@@ -155,13 +155,14 @@
 <script type="text/javascript">
   $("#loginBtn").click(function(){
    $.ajax({
-    "url":"../users/login",
+    "url":"/users/login",
     "data":$("#form-login").serialize(),
     "dataType":"json",
     "type":"post",
     "success":function(json){
      if(json.state==20){
       alert("登陆成功");
+      $.cookie("src",json.data.avatar,{"expires":7});
      }else{
       alert(json.message);
      }

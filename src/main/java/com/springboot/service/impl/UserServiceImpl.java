@@ -178,6 +178,31 @@ public class UserServiceImpl implements IUserService {
 			throw new UpdateException("更新失败:请联系管理员");
 		}
 	}
+	/**
+	 * 更新用户头像
+	 */
+	@Override
+	public void changeAvatar(String avatar, Integer uid, String modifiedUser)
+			throws UserNotFoundException, UpdateException {
+		// 根据id查找数据库里面是否存在
+				User result = usermapper.findByUid(uid);
+				// 判断是否为空
+				if (result == null) {
+					// 为空抛出UserNotFoundException
+					throw new UserNotFoundException("查询异常：用户数据找不到");
+				}
+				// 判断is_delete是否为1
+				if (result.getIsDelete().equals(1)) {
+					throw new UserNotFoundException("查询异常：用户数据不存在");
+				}
+				//执行更新方法
+				Integer row = usermapper.updateAvatar(uid, avatar, modifiedUser, new Date(0));
+				//判断是否修改成功
+				if(!row.equals(1)) {
+					throw new UpdateException("修改异常，请联系管理员");
+				}
+				
+	}
 
 	public String getMD(String password, String salt) {
 		password = salt + password + salt;
@@ -186,5 +211,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		return password;
 	}
+
+	
 
 }
