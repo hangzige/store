@@ -99,7 +99,7 @@ public class UserCotrolelr extends BaseController{
 		json.setState(SUCCESS);
 		return json;
 	}
-	
+	//头像的大小
 	private static final Integer AVATAR_SIZE = 1*2014*2014;
 	private static final  List<String> AVATAR_TYPE = new ArrayList<String>();
 	static{
@@ -108,7 +108,7 @@ public class UserCotrolelr extends BaseController{
 	}
 	@RequestMapping("change_avatar")
 	public JsonResult<String> changeAvatar(HttpServletRequest request,
-			@RequestParam("file")MultipartFile file){
+			@RequestParam("file")MultipartFile file, HttpSession session){
 		//判断文件是否为空
 		if(file.isEmpty()) {
 			throw new FileEmptyException("文件不能为空");
@@ -152,8 +152,8 @@ public class UserCotrolelr extends BaseController{
 		//将相对路径存入数据库
 		String avatar = "/upload/"+filename;
 		//获取uid和Username
-		Integer uid = getUidFromSession(request);
-		String modifiedUser=getUsernameFromSession(request);
+		Integer uid = getUidFromSession(session);
+		String modifiedUser=getUsernameFromSession(session);
 		service.changeAvatar(avatar, uid, modifiedUser);
 		return new JsonResult<String>(SUCCESS,avatar);
 	}
