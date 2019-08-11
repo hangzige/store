@@ -19,8 +19,8 @@
 		<link rel="stylesheet" type="text/css" href="../css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="../css/top.css" />
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
-		<script type="text/javascript" src="../js/distpicker.data.js"></script>
-		<script type="text/javascript" src="../js/distpicker.js"></script>
+		<!--<script type="text/javascript" src="../js/distpicker.data.js"></script>
+		<script type="text/javascript" src="../js/distpicker.js"></script>-->
 		</script>
 	</head>
 
@@ -151,17 +151,17 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label"><span class="txtred">*</span>省/直辖市：</label>
 									<div class="col-md-3">
-										<select name="province" class="form-control" data-province="---- 选择省 ----" id="receiverState"></select>
+										<select name="province" class="form-control" data-province="---- 选择省 ----" id="province"></select>
 									</div>
 									<label class="col-md-2 control-label"><span class="txtred">*</span>城市：</label>
 									<div class="col-md-3">
-										<select name="city" class="form-control" data-city="---- 选择市 ----" id="receiverCity"></select>
+										<select name="city" class="form-control" data-city="---- 选择市 ----" id="city"></select>
 									</div>
 								</div>
 								<div class="form-group ">
 									<label class="col-md-2 control-label"><span class="txtred">*</span>区县：</label>
 									<div class="col-md-3">
-										<select name="area" class="form-control" data-district="---- 选择区 ----" id="receiverDistrict"></select>
+										<select name="area" class="form-control" data-district="---- 选择区 ----" id="area"></select>
 									</div>
 									<label class="col-md-2 control-label">邮政编码：</label>
 									<div class="col-md-3">
@@ -288,7 +288,62 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
-        <script type="text/javascript">
+	<script>
+    // 页面就绪事件
+    $(function(){
+        var defaultOption = "<option value='0'>---- 请选择 ----</option>";
+
+        // 为3个<select>添加默认选项
+        $("#province").append(defaultOption);
+        $("#city").append(defaultOption);
+        $("#area").append(defaultOption);
+
+        // 自动生成省级列表
+        appendList(86,"province");
+
+		$("#province").change(function () {
+            //获取得到的省级编号
+			var value = this.value;
+            //清空原来的省级信息；
+            $("#city").empty();
+            $("#city").append(defaultOption);
+            $("#area").empty();
+            $("#area").append(defaultOption);
+			appendList(value,"city");
+        })
+        $("#city").change(function () {
+            //获取得到的区级编号
+            var value = this.value;
+            //清空原来的区级信息；
+            $("#area").empty();
+            $("#area").append(defaultOption);
+            appendList(value,"area");
+        })
+    });
+
+    // parent是父级编号，sid是select标签的id属性的值
+    function appendList(parent,sid){
+        $.ajax({
+            "url":"/districts/",
+            "data":"parent="+parent,
+            "type":"get",
+            "dataType":"json",
+            "success":function(json) {
+                // 获取列表的数组
+                var list = json.data;
+                // 遍历数组
+                for(var i=0;i<list.length;i++){
+                    // 每一条记录生成一个option
+                    var option="<option value='"+
+                        list[i].code+"'>"+list[i].name+"</option>";
+                    // 将option添加到select内部
+                    $("#"+sid).append(option);
+                }
+            }
+        });
+    }
+
+
         $("#btn-create-address").click(function(){
             $.ajax({
                 "url":"/addresses/create_address",

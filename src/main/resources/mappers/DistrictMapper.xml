@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.DistrictMapepr">
+    <!--查询子级信息-->
+    <!-- List<District> findByParent(String parent);-->
+    <select id="findByParent" resultType="com.springboot.entity.District">
+        SELECT id,parent,code,name
+        FROM t_dict_district
+        WHERE parent = #{panret}
+    </select>
+
+    <!-- 根据code查询地区信息 -->
+    <!-- District findByCode(String code) -->
+    <select id="findByCode"
+            resultType="com.springboot.entity.District">
+        SELECT
+            id,
+            parent,
+            code,
+            name
+        FROM
+            t_dict_district
+        WHERE
+            code = #{code}
+    </select>
+
+</mapper>

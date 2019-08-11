@@ -33,6 +33,7 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
 	    // 注册和登录控制器
 	    patterns.add("/users/login");
 	    patterns.add("/users/reg");
+	    patterns.add("/district/*");
 	    //白名单
 		ir.excludePathPatterns(patterns);
 		

@@ -5,6 +5,8 @@ import com.springboot.service.ex.AddressCountLimitException;
 import com.springboot.service.ex.InsertException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 添加用户地址信息的业务层
  */
@@ -19,4 +21,11 @@ public interface IAddressService {
      * @throws InsertException 插入失败异常
      */
     void createAddress(Integer uid, String username, Address address)throws AddressCountLimitException, InsertException;
+
+    /**
+     * 查找用户收货地址
+     * @param uid 用户uid
+     * @return
+     */
+    List<Address> listByUid(Integer uid);
 }

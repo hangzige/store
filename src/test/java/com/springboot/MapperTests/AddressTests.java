@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AddressTests {
@@ -21,7 +23,9 @@ public class AddressTests {
 
         Integer row = mapper.saveAddress(address);
         System.out.println(row);*/
-        Integer row = mapper.countByUid(1);
-        System.out.println(row);
+        /*Integer row = mapper.countByUid(1);
+        System.out.println(row);*/
+        List<Address> list = mapper.findByUid(1);
+        System.out.println(list);
     }
 }

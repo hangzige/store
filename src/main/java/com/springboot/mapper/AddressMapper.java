@@ -2,6 +2,8 @@ package com.springboot.mapper;
 
 import com.springboot.entity.Address;
 
+import java.util.List;
+
 public interface AddressMapper {
     /**
      * 根据uid统计地址数量
@@ -16,4 +18,11 @@ public interface AddressMapper {
      * @return 插入数量
      */
     Integer saveAddress(Address address);
+
+    /**
+     * 用uid查找用户有多少地址
+     * @param uid
+     * @return
+     */
+    List<Address> findByUid(Integer uid);
 }
